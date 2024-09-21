@@ -14,6 +14,8 @@
 - [Usage](#usage)
 - [Obtaining the OAuth Token](#obtaining-the-oauth-token)
 - [Troubleshooting](#troubleshooting)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
 
 ---
 
@@ -125,5 +127,27 @@ For detailed instructions on obtaining your OAuth Token, please refer to the [OA
 ### Logging
 
 Check the `app.log` file (if logging to a file is configured) for detailed error messages and stack traces to assist in debugging.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## Acknowledgments
+
+- **SoundCloud API:** For providing the necessary endpoints to interact with playlists.
+- **Python Community:** For the extensive libraries and tools that make projects like this possible.
+- **OpenAI:** For assisting in the development and structuring of this project.
+
+---
+
+**Disclaimer:** This tool is intended for personal use. Ensure that you have the right to duplicate any playlists and that your actions comply with SoundCloud's [Terms of Service](https://soundcloud.com/terms-of-use) and [Developer Guidelines](https://developers.soundcloud.com/docs/api/guide).
+
+---
+
+*Happy playlist duplicating! 🎶*
 
 ---

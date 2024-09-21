@@ -2,6 +2,17 @@
 
 Follow these steps to set up the SoundCloud Playlist Duplicator on your macOS machine.
 
+## 0. Clone the Repository
+
+Clone the SoundCloud Playlist Duplicator repository to your local machine.
+
+```bash
+git clone https://github.com/yourusername/soundcloud_playlist_duplicator.git
+cd soundcloud_playlist_duplicator
+```
+
+*Replace `yourusername` with your actual GitHub username if applicable.*
+
 ## 1. Install pyenv
 
 **pyenv** is a powerful tool for managing multiple Python versions and virtual environments. It allows you to easily switch between different Python versions, ensuring compatibility and ease of development across various projects.
@@ -15,37 +26,32 @@ Once Homebrew is installed, open your Terminal and run:
 ```bash
 brew update
 brew install pyenv
+brew install pyenv-virtualenv
 ```
 
-## 2. Configure Your Shell for pyenv
+## 2. Configure Your Shell for pyenv and virtualenv
+
+Ref: https://github.com/pyenv/pyenv?tab=readme-ov-file
 
 To enable pyenv in your shell, you need to add its initialization commands to your shell configuration file. Since macOS uses **zsh** by default, you'll modify the `~/.zshrc` file.
 
 ### Add pyenv to `~/.zshrc`:
 
-Open the `~/.zshrc` file in your preferred text editor. For example, using `nano`:
+Run the following commands to add these lines to the end of your file:
 
 ```bash
-nano ~/.zshrc
-```
-
-Add the following lines to the end of the file:
-
-```bash
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv virtualenv-init -)"
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
 ```
 
 **Explanation:**
 
 - `export PYENV_ROOT="$HOME/.pyenv"`: Sets the root directory where pyenv stores its files.
-- `export PATH="$PYENV_ROOT/bin:$PATH"`: Adds pyenv's binary directory to your system's `PATH` so you can use pyenv commands.
+- `[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"`: Adds pyenv's binary directory to your system's `PATH` so you can use pyenv commands.
 - `eval "$(pyenv init --path)"`: Initializes pyenv.
 - `eval "$(pyenv virtualenv-init -)"`: Initializes pyenv-virtualenv, enabling virtual environment management.
-
-Save and exit the editor. If you're using `nano`, press `Ctrl + O` to write out the changes, then `Ctrl + X` to exit.
 
 ### Apply the Changes:
 
@@ -58,14 +64,6 @@ source ~/.zshrc
 ## 3. Install Python 3.8.14 with pyenv
 
 With pyenv installed and configured, you can now install Python 3.8.14.
-
-### List Available Python Versions:
-
-To see all available Python versions that pyenv can install:
-
-```bash
-pyenv install --list
-```
 
 ### Install Python 3.8.14:
 
@@ -83,23 +81,23 @@ pyenv install 3.8.14
 
 With pyenv-virtualenv integrated, you can create virtual environments tied to specific Python versions.
 
-### Create a Virtual Environment Named `sc-duplicator`:
+### Create a Virtual Environment Named `soundcloud-playlist`:
 
 ```bash
-pyenv virtualenv 3.8.14 sc-duplicator
+pyenv virtualenv 3.8.14 soundcloud-playlist
 ```
 
 **Explanation:**
 
 - `3.8.14`: Specifies the Python version for the virtual environment.
-- `sc-duplicator`: The name of the virtual environment.
+- `soundcloud-playlist`: The name of the virtual environment.
 
 ## 5. Activate the Virtual Environment
 
 Activate the newly created virtual environment to start using it.
 
 ```bash
-pyenv activate sc-duplicator
+pyenv activate soundcloud-playlist
 ```
 
 **Verify Activation:**
@@ -116,18 +114,7 @@ You should see:
 Python 3.8.14
 ```
 
-## 6. Clone the Repository
-
-Clone the SoundCloud Playlist Duplicator repository to your local machine.
-
-```bash
-git clone https://github.com/yourusername/soundcloud_playlist_duplicator.git
-cd soundcloud_playlist_duplicator
-```
-
-*Replace `yourusername` with your actual GitHub username if applicable.*
-
-## 7. Install Dependencies Using pip-compile
+## 6. Install Dependencies Using pip-compile
 
 To manage dependencies efficiently, this project uses **pip-tools**, which provides the `pip-compile` tool. This tool allows you to maintain a `requirements.in` file with your top-level dependencies and generate a fully pinned `requirements.txt` file.
 
@@ -142,7 +129,7 @@ pip install pip-tools
 Assuming you have a `requirements.in` file in your project directory that lists your top-level dependencies, run:
 
 ```bash
-pip-compile requirements.in
+pip-compile requirements.in --no-emit-index-url -o requirements.txt
 ```
 
 **Explanation:**
